@@ -1,5 +1,4 @@
 
-
 import java.util.*;
 
 public class chess {
@@ -36,6 +35,9 @@ public class chess {
         int colto = to[1];
 
         String selected = board[row][col];
+        String target = board[rowto][colto];
+       
+       
         if (selected == null || selected == "- ") {
             return null;
         }
@@ -44,13 +46,30 @@ public class chess {
         // pawn
         if (selected == "1p" || selected == "2P") {
             if ((row == 1 || row == 6) && (Math.abs(row - rowto) < 3)) {
-                board[row][col] = "- ";
-                board[rowto][colto] = selected;
+
+                if ((board[rowto][colto] == null
+                        || ((board[rowto][col]).charAt(0) != selected.charAt(0)))&&col==colto) {
+                    board[row][col] = "- ";
+                    board[rowto][col] = selected;
+                }else if(board[rowto][colto] != null && ((board[rowto][colto]).charAt(0) != selected.charAt(0))){
+                    board[row][col] = "- ";
+                    board[rowto][colto] = selected;
+                } else {
+                    return null;
+                }
 
             } else if (row < 8 && (Math.abs(row - rowto) < 2) && (row != 0 || row != 6)) {
-                board[row][col] = "- ";
-                board[rowto][colto] = selected;
 
+                if ((board[rowto][colto] == null
+                        || ((board[rowto][col]).charAt(0) != selected.charAt(0))) && col == colto) {
+                    board[row][col] = "- ";
+                    board[rowto][col] = selected;
+                } else if (board[rowto][colto] != null && ((board[rowto][colto]).charAt(0) != selected.charAt(0))) {
+                    board[row][col] = "- ";
+                    board[rowto][colto] = selected;
+                } else {
+                    return null;
+                }
             } else {
                 return null;
             }
@@ -91,7 +110,7 @@ public class chess {
             }
             result = play(board, player, move, to);
             if (result == null) {
-                print("illegal move");
+                print("**********  illegal move  ***********");
                 continue;
             } else {
 
