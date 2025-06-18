@@ -36,22 +36,21 @@ public class chess {
 
         String selected = board[row][col];
         String target = board[rowto][colto];
-       
-       
+
         if (selected == null || selected == "- ") {
             return null;
         }
         print("Selected: " + selected);
 
         // pawn
-        if (selected == "1p" || selected == "2P") {
+        if ((selected.equals("1p") && (row - rowto > 0)) || (selected.equals("2P") && (row - rowto < 0))) {
             if ((row == 1 || row == 6) && (Math.abs(row - rowto) < 3)) {
 
-                if ((board[rowto][colto] == null
-                        || ((board[rowto][col]).charAt(0) != selected.charAt(0)))&&col==colto) {
+                if ((board[rowto][colto] == null || ((board[rowto][col]).charAt(0) != selected.charAt(0)))
+                        && col == colto) {
                     board[row][col] = "- ";
                     board[rowto][col] = selected;
-                }else if(board[rowto][colto] != null && ((board[rowto][colto]).charAt(0) != selected.charAt(0))){
+                } else if (board[rowto][colto] != null && ((board[rowto][colto]).charAt(0) != selected.charAt(0))) {
                     board[row][col] = "- ";
                     board[rowto][colto] = selected;
                 } else {
